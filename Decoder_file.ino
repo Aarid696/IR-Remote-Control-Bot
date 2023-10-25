@@ -1,5 +1,5 @@
 #include <IRremote.hpp>
-int IRpin = 2;
+int IRpin = 12;
 void setup()
 {
   Serial.begin(9600);

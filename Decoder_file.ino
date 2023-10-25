@@ -14,9 +14,3 @@ void loop()
      IrReceiver.resume();
     }
 }
-
-//E41B7F80 for 2
-//F30C7F80 for 4
-//F00F7F80 for 8
-//F10E7F80 for 6
-//ED127F80 for power stop

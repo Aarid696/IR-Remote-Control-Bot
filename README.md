@@ -5,7 +5,7 @@ The Bot is controlled through IR remote. The project is slightly more enumerable
 # Working Procedure
 1. Follow the circuit digram and simulation for wire connection. For connection of motor driver module _Check the pins of motor driver module from board with driver IC in simulation_ it is easy and simple. No need to worry! We could have used _Driver Module_ but it was not available in the TinkerCad, hence we used _driver IC_ for proper simulation. 
 2. Downlaod the _decoder_file.ino_ in the Arduino Uno and find out the codes for the buttons of the IR_Remote. In our case we used button '2' for _forward_, button '6' for _left_, button '8' for _back_ and button 4'' for _right_ in the remote. 'Power' button for _stop_ command.
-3. Download the _Main_control.ino_ in the Arduino UNO. Before downlaoding, update the remote codes_(where ever mentioned in the program)_ because it is unique.
+3. Download the _Main_control.ino_ in the Arduino UNO. Before downlaoding, update the remote codes _(where ever mentioned in the program)_ because it is unique.
 4. Now you can play with the Bot!
 
 # Problems faced and solution
@@ -16,7 +16,7 @@ We used the _L293N motor module_ for driving the motor. You may use any such con
 4. **Power Issue:**
 This was prolonged issues that we faced, and most of the electronics engineers' task is solve this issue. The motor driver module is a current amplifier based hence it requires appreciable current in milli amps for driving the motors. We were using BO motors mechanised with gears, these are basically dc series motor. Initially we were giving power from motor driver side and it was then passing it to the arduino for the control. In most of the YouTube tutorials you will see this powering method. I will personally don't recommend this method. It is better to use different power modes separatley for arduino and motor driver respectively. Remember to make common grounds for both. The problem that we faced was when we were taking power from the motor driver side, the _5V pin_ of the driver is connected to the _Vin_ of the arduino. The _Vin_ is reponsible for the powering the arduino from external fluctuating power source. It works well when power requirement is less but not in this case where power requrement was more. Since were powering separatley for Arduino UNO R3 and Motor Driver, the _5V pin_ of the driver was connected to _5V pin_ of the Arduino so as to create the balance.
 
-# Providing in the Circuit Diagram
+# Providing the Circuit Diagram
 
 ![IR Control Bot](https://github.com/Aarid696/IR-Remote-Control-Bot/assets/79322886/5e7644ff-2eb7-4527-b347-8e9741704fa3)
 

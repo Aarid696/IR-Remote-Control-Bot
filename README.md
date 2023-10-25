@@ -12,4 +12,4 @@ The Bot is controlled through IR remote. The project is slightly more enumerable
 ![IR Control Bot](https://github.com/Aarid696/IR-Remote-Control-Bot/assets/79322886/5e7644ff-2eb7-4527-b347-8e9741704fa3)
 
 # Providing the Online Simulation of the model in TinkerCad
-![Simulation Model](https://www.tinkercad.com/things/iiatNcfxgB7?sharecode=lZWnj-Vrb6yM29YGcNTwWRZlOoy62q2tkW0FbuxOUZE) 
+https://www.tinkercad.com/things/iiatNcfxgB7?sharecode=lZWnj-Vrb6yM29YGcNTwWRZlOoy62q2tkW0FbuxOUZE

@@ -1,6 +1,6 @@
-#include <IRremote.hpp>
+#include <IRremote.hpp> //This was the updated library
 
-#define IRpin  2
+#define IRpin  12 // In some cases pin 12 does not work, try to change pin. Better to use PWM signal pins
 
 #define IN1 7   // Left  wheel forward
 #define IN2 8   // Left  wheel reverse
@@ -8,7 +8,7 @@
 #define IN4 11  // Right wheel forward
 #define ENB 5 // left wheel speed
 #define ENA 6 // left wheel speed
-#define carSpeed 255  // initial speed of car >=0 to <=255
+#define carSpeed 100  // initial speed of car >=0 to <=255, you may change the speed while turning
 #define carspeed2 255 // set forward and backward speed
 
 String val;
@@ -34,7 +34,7 @@ void back(){
   digitalWrite(IN2, LOW);
   digitalWrite(IN3, HIGH);
   digitalWrite(IN4, LOW);
-  digitalWrite(12,HIGH);
+  digitalWrite(2,HIGH);
   digitalWrite(4,HIGH);
   Serial.println("go back!");
 }
@@ -47,8 +47,6 @@ void left(){
   digitalWrite(IN3, LOW);
   digitalWrite(IN4, HIGH);
   digitalWrite(4,HIGH);
-  digitalWrite(12,HIGH);
-  digitalWrite(3,HIGH);
   Serial.println("go left!");
 }
 
@@ -60,8 +58,6 @@ void right(){
   digitalWrite(IN3, HIGH);
   digitalWrite(IN4, LOW);
   digitalWrite(4,HIGH);
-  digitalWrite(12,HIGH);
-  digitalWrite(3,HIGH);
   Serial.println("go right!");
 }
 
@@ -82,9 +78,9 @@ void setup()
   pinMode(IN4, OUTPUT);
   pinMode(ENA, OUTPUT);
   pinMode(ENB, OUTPUT);
-  pinMode(12,OUTPUT);
-  pinMode(3,OUTPUT);
-  pinMode(4,OUTPUT);
+  pinMode(2,OUTPUT); //This pin is for LED, to check for back command
+  pinMode(3,OUTPUT); //This pin is for LED, to check for back command
+  pinMode(4,OUTPUT); //This pin is for LED, to check for any command
   stop();
   IrReceiver.begin(IRpin, ENABLE_LED_FEEDBACK);
 }
@@ -93,39 +89,24 @@ void loop() {
   if (IrReceiver.decode()){ 
     preMillis = millis();
     Serial.println(IrReceiver.decodedIRData.decodedRawData, HEX);
-    val = String(IrReceiver.decodedIRData.decodedRawData, HEX);
-    Serial.println(val);
+    val = String(IrReceiver.decodedIRData.decodedRawData, HEX); // command for receiving the values
+    Serial.println(val); // for printing the values in serail monitor
     IrReceiver.resume();
+
+    /* These if statements were written for the indirect comparisons of the data recieved from IR
+    remote because in case were getting alphanumeric values, it may so happen that you might get 'long int' values. 
+    In that case you can directly compare the results in 'switch' command*/
     
-    if(val == "e41b7f80")//for 2 button remote
-    {
+    if(val == "ee11bf00") // the code may change in your case, check it by running decoder program
       value = 1;
-      Serial.println("Gaadi aage badh rahi hai");
-    }
-      
-    if(val == "f00f7f80")// for 8 button remote
-    {  
+    if(val == "e619bf00") // the code may change in your case, check it by running decoder program
       value = 2;
-      Serial.println("Gaadi piche ja rahi hai");
-    }
-    
-    if(val == "f10e7f80")
-    {
+    if(val == "eb14bf00") // the code may change in your case, check it by running decoder program
+      value = 3; 
+    if(val == "e916bf00") // the code may change in your case, check it by running decoder program
       value = 4;
-      Serial.println("Gaadi Daye ja rahi hai");
-    }
-    
-    if(val == "f30c7f80")
-    {
-      value = 3;
-      Serial.println("Gaadi Baye ja rahi hai");
-    }
-    
-    if(val == "ed127f80")
-    {
-      value = 5;
-      Serial.println("Gaadi ruk gayi");
-    }
+    if(val == "ff00bf00") // the code may change in your case, check it by running decoder program
+      value = 5; // No need of this command you can skip it
     
     switch(value){
       case 1: forward();  break;
@@ -139,7 +120,7 @@ void loop() {
   else{
     if(millis() - preMillis > 150){
       stop();
-      digitalWrite(12,LOW);
+      digitalWrite(2,LOW);
       digitalWrite(3,LOW);
       preMillis = millis();
     }
